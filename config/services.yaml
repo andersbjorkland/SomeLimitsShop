@@ -33,3 +33,8 @@ services:
     App\Controller\:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
+        
+    App\Inventory\AvailabilityCheckerDecorator:
+        decorates: sylius.availability_checker.default
+        arguments:
+            - '@.inner'
