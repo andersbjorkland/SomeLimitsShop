@@ -1,0 +1,25 @@
+services:
+  mysql:
+    image: mariadb:10.8 # Sylius is fully working on mysql 8.0 version
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-nopassword}
+      - MYSQL_DATABASE=sylius
+      - MYSQL_USER=sylius
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD:-nopassword}
+    volumes:
+      - db-data:/var/lib/mysql:rw
+    ports:
+      - "${MYSQL_PORT:-3306}:3306"
+
+  mailhog:
+    # do not use in production!
+    image: mailhog/mailhog:latest
+    environment:
+      - MH_STORAGE=maildir
+    # volumes:
+    #   - ./docker/mailhog/maildir:/maildir:rw,delegated
+    ports:
+      - "${MAILHOG_PORT:-8025}:8025"
+
+volumes:
+  db-data:
