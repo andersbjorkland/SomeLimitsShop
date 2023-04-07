@@ -18,7 +18,7 @@ use Sylius\Component\Product\Model\ProductVariantTranslationInterface;
 class ProductVariant extends BaseProductVariant implements StockLimitInterface
 {
     /**
-     * @ORM\Column(type="integer", options={"default" : 0})
+     * @ORM\Column(type="integer", nullable=true, options={"default" : 0})
      */
     private $stockLimit;
 
@@ -29,13 +29,13 @@ class ProductVariant extends BaseProductVariant implements StockLimitInterface
 
     public function getStockLimit(): int
     {
-        return $this->stockLimit;
+        return $this->stockLimit ?? 0;
     }
 
     /**
      * @param mixed $stockLimit
      */
-    public function setStockLimit(int $stockLimit): void
+    public function setStockLimit(?int $stockLimit): void
     {
         $this->stockLimit = $stockLimit;
     }
